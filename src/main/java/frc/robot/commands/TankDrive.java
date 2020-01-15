@@ -7,9 +7,13 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+
 
 /**
  * An example command that uses an example subsystem.
@@ -17,10 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TankDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveSubsystem driveSubsystem;
-  private final DoubleSupplier leftJoystickValues;
-  private final DoubleSupplier rightJoystickValues;
-
-  
+  private final Joystick logitechJoystick;
 
   /**
    * Creates a new TankDrive.
@@ -28,10 +29,9 @@ public class TankDrive extends CommandBase {
    * @param rightJoystickValues The control input for right motor.
    * @param subsystem The subsystem used by this command.
    */
-  public TankDrive(DoubleSupplier left, DoubleSupplier right, DriveSubsystem subsystem) {
+  public TankDrive(Joystick joystick, DriveSubsystem subsystem) {
     driveSubsystem = subsystem;
-    leftJoystickValues = left;
-    rightJoystickValues = right;
+    logitechJoystick = joystick;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
@@ -45,8 +45,8 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.tankDrive(leftJoystickValues.getAsDouble(), rightJoystickValues.getAsDouble());
-
+    driveSubsystem.tankDrive(logitechJoystick.getRawAxis(Constants.JOYSTICK_LEFT_Y_AXIS), 
+                             logitechJoystick.getRawAxis(Constants.JOYSTICK_RIGHT_Y_AXIS));
   }
 
   // Called once the command ends or is interrupted.

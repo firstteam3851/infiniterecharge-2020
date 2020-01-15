@@ -13,7 +13,8 @@ public class DriveSubsystem extends SubsystemBase {
   DifferentialDrive differentialDrive = new DifferentialDrive(leftMotor, rightMotor);
 
   public void tankDrive(double leftValue, double rightForward) {
-    differentialDrive.tankDrive(leftValue, rightForward);
+    Boolean SENSITIVE_LOW_SPEED = true;
+    differentialDrive.tankDrive(-leftValue, -rightForward, SENSITIVE_LOW_SPEED);
   }
 
   public void stop() {

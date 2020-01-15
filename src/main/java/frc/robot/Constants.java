@@ -19,7 +19,8 @@ package frc.robot;
  */
 public final class Constants {
   public static int LEFT_JOYSTICK_PORT = 0;
-  public static int RIGHT_JOYSTICK_PORT = 0;
+  public static int JOYSTICK_LEFT_Y_AXIS = 1;
+  public static int JOYSTICK_RIGHT_Y_AXIS = 3;
 
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
   public static int DRIVE_TRAIN_RIGHT_MOTOR = 1;
