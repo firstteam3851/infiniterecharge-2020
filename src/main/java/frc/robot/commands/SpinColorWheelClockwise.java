@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SpinSubsystem;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SpinColorWheelClockwise extends CommandBase {

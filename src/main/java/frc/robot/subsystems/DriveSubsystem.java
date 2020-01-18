@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -12,9 +13,11 @@ public class DriveSubsystem extends SubsystemBase {
   SpeedController leftMotor = new Jaguar(Constants.DRIVE_TRAIN_LEFT_MOTOR);
   DifferentialDrive differentialDrive = new DifferentialDrive(leftMotor, rightMotor);
 
-  public void tankDrive(double leftValue, double rightForward) {
+  public void tankDrive(double leftValue, double rightValue) {
     Boolean SENSITIVE_LOW_SPEED = true;
-    differentialDrive.tankDrive(-leftValue, -rightForward, SENSITIVE_LOW_SPEED);
+    differentialDrive.tankDrive(-leftValue, -rightValue, SENSITIVE_LOW_SPEED);
+    SmartDashboard.putNumber("Tank Drive - Left Motor", -leftValue);
+    SmartDashboard.putNumber("Tank Drive - Right Motor", -rightValue);
   }
 
   public void stop() {
