@@ -18,10 +18,19 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  // OI
   public static int LEFT_JOYSTICK_PORT = 0;
   public static int JOYSTICK_LEFT_Y_AXIS = 1;
   public static int JOYSTICK_RIGHT_Y_AXIS = 3;
 
+  public static int JOYSTICK_BUTTON_TWO = 2;
+  public static int JOYSTICK_BUTTON_THREE = 3;
+
+
+  // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
   public static int DRIVE_TRAIN_RIGHT_MOTOR = 1;
+
+  // Spin Subsystem
+  public static int SPINNER_RELAY = 0;
 }

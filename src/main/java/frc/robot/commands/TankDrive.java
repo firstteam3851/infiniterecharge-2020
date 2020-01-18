@@ -12,20 +12,17 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
-
-/**
- * An example command that uses an example subsystem.
- */
 public class TankDrive extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveSubsystem driveSubsystem;
   private final Joystick logitechJoystick;
 
   /**
    * Creates a new TankDrive.
-   * @param leftJoystickValues The control input for left motor
+   * 
+   * @param leftJoystickValues  The control input for left motor
    * @param rightJoystickValues The control input for right motor.
-   * @param subsystem The subsystem used by this command.
+   * @param subsystem           The subsystem used by this command.
    */
   public TankDrive(Joystick joystick, DriveSubsystem subsystem) {
     driveSubsystem = subsystem;
@@ -43,8 +40,8 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.tankDrive(logitechJoystick.getRawAxis(Constants.JOYSTICK_LEFT_Y_AXIS), 
-                             logitechJoystick.getRawAxis(Constants.JOYSTICK_RIGHT_Y_AXIS));
+    driveSubsystem.tankDrive(logitechJoystick.getRawAxis(Constants.JOYSTICK_LEFT_Y_AXIS),
+        logitechJoystick.getRawAxis(Constants.JOYSTICK_RIGHT_Y_AXIS));
   }
 
   // Called once the command ends or is interrupted.
