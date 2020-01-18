@@ -29,14 +29,12 @@ public class SpinColorWheelStop extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        DriverStation.reportWarning("Rotating Spinner Stop", false);
         spinSubsystem.stop();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        DriverStation.reportWarning("Rotating Spinner Stop Counter Clockwise", false);
         spinSubsystem.stop();
     }
 
