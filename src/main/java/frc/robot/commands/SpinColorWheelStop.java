@@ -11,33 +11,32 @@ import frc.robot.subsystems.SpinSubsystem;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinColorWheelClockwise extends CommandBase {
+public class SpinColorWheelStop extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SpinSubsystem spinSubsystem;
 
-    public SpinColorWheelClockwise(SpinSubsystem subsystem) {
+    public SpinColorWheelStop(SpinSubsystem subsystem) {
         spinSubsystem = subsystem;
-
-        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(spinSubsystem);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        spinSubsystem.stop();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        DriverStation.reportWarning("Rotating Spinner Clockwise", false);
-        spinSubsystem.rotateClockwise();
+        DriverStation.reportWarning("Rotating Spinner Stop", false);
+        spinSubsystem.stop();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        DriverStation.reportWarning("Rotating Spinner Stop Clockwise", false);
+        DriverStation.reportWarning("Rotating Spinner Stop Counter Clockwise", false);
         spinSubsystem.stop();
     }
 
