@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -36,5 +38,9 @@ public final class Constants {
   // Spin Subsystem
   public static int SPINNER_RELAY = 0;
   public static I2C.Port COLOR_SENSOR_V3 = I2C.Port.kOnboard;
+  public static Set<String> VINYL_RED_RANGE = Set.of("b", "c");
+  public static Set<String> VINYL_GREEN_RANGE = Set.of("6", "7");
+  public static Set<String> VINYL_BLUE_RANGE = Set.of("4", "5");
+  public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
 
 }
