@@ -10,6 +10,7 @@ This repo is built via feature branch development. Create branches to develop fe
 - If branch is out of date with master `git rebase origin/master`
 - Force push changes to branch if updated `git push -f`
 - To define a new feature branch `git checkout -b name-of-branch`
+- To checkout an existing branch `git checkout name-of-branch`
 
 # Steps to deploy code to robot
 1. Turn robot on, connect to robot radio via WiFi `3851_bruh`
