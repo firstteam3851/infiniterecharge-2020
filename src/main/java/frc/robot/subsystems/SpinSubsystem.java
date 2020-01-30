@@ -1,11 +1,8 @@
 
 package frc.robot.subsystems;
 
-import java.util.Arrays;
-
 import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
