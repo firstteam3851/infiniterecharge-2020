@@ -16,6 +16,7 @@ import frc.robot.commands.SpinColorWheelClockwise;
 import frc.robot.commands.SpinColorWheelCounterClockwise;
 import frc.robot.commands.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.autonomous.AutonomousDriveForward;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
@@ -29,15 +30,13 @@ import frc.robot.Constants;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final SpinSubsystem spinSubsystem = new SpinSubsystem();
+  private final DriveSubsystem driveSubsystem;
+  private final SpinSubsystem spinSubsystem;
 
   // OI
-  private final Joystick logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
-  private final JoystickButton logitechJoystickButtonTwo = new JoystickButton(logitechJoystick,
-      Constants.JOYSTICK_BUTTON_TWO);
-  private final JoystickButton logitechJoystickButtonThree = new JoystickButton(logitechJoystick,
-      Constants.JOYSTICK_BUTTON_THREE);
+  private final Joystick logitechJoystick;
+  private final JoystickButton logitechJoystickButtonTwo;
+  private final JoystickButton logitechJoystickButtonThree;
 
   // Commands
   TankDrive tankDrive;
@@ -45,17 +44,29 @@ public class RobotContainer {
   SpinColorWheelCounterClockwise spinColorWheelCounterClockwise;
   SpinColorWheelStop spinColorWheelStop;
 
+  AutonomousDriveForward autonomousDriveForward;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     DriverStation.reportWarning("Robot Container init", false);
+    // Instantiate subsystems
+    driveSubsystem = new DriveSubsystem();
+    spinSubsystem = new SpinSubsystem();
+
+    // Instantiate IO
+    logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
+    logitechJoystickButtonTwo = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_TWO);
+    logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
     // Instantiate commands
     tankDrive = new TankDrive(logitechJoystick, driveSubsystem);
     spinColorWheelClockwise = new SpinColorWheelClockwise(spinSubsystem);
     spinColorWheelCounterClockwise = new SpinColorWheelCounterClockwise(spinSubsystem);
     spinColorWheelStop = new SpinColorWheelStop(spinSubsystem);
+
+    autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
@@ -83,7 +94,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
+    return autonomousDriveForward;
   }
 }
