@@ -38,10 +38,11 @@ public class TankDrive extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  // Axis and joystick reversal to accomodate bot orientation
   @Override
   public void execute() {
-    driveSubsystem.tankDrive(logitechJoystick.getRawAxis(Constants.JOYSTICK_LEFT_Y_AXIS),
-        logitechJoystick.getRawAxis(Constants.JOYSTICK_RIGHT_Y_AXIS));
+    driveSubsystem.tankDrive(-1 * logitechJoystick.getRawAxis(Constants.JOYSTICK_RIGHT_Y_AXIS),
+        -1 * logitechJoystick.getRawAxis(Constants.JOYSTICK_LEFT_Y_AXIS));
   }
 
   // Called once the command ends or is interrupted.
