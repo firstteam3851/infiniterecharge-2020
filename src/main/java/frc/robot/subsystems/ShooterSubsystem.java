@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
         pickupRelay.set(Relay.Value.kForward);
     }
 
-    public void emptyFeeder() {
+    public void reverseFeeder() {
         pickupRelay.set(Relay.Value.kReverse);
     }
 

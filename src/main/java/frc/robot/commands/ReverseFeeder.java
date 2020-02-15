@@ -10,11 +10,11 @@ package frc.robot.commands;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class EmptyFeeder extends CommandBase {
+public class ReverseFeeder extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final ShooterSubsystem shooterSubsystem;
 
-    public EmptyFeeder(ShooterSubsystem subsystem) {
+    public ReverseFeeder(ShooterSubsystem subsystem) {
         shooterSubsystem = subsystem;
     }
 
@@ -26,7 +26,7 @@ public class EmptyFeeder extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.emptyFeeder();
+        shooterSubsystem.reverseFeeder();
     }
 
     // Called once the command ends or is interrupted.

@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
+import frc.robot.commands.ReverseFeeder;
+import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunShooterHigh;
 import frc.robot.commands.RunShooterLow;
 import frc.robot.commands.RunShooterMid;
@@ -49,6 +51,8 @@ public class RobotContainer {
   private final JoystickButton controlBoardShooterMidBtn;
   private final JoystickButton controlBoardShooterHighBtn;
   private final JoystickButton controlBoardShooterStopBtn;
+  private final JoystickButton controlBoardFeedBtn;
+  private final JoystickButton controlBoardRevFeedBtn;
 
   // Commands
   TankDrive tankDrive;
@@ -61,6 +65,8 @@ public class RobotContainer {
   RunShooterMid runShooterMid;
   RunShooterHigh runShooterHigh;
   ShooterStop shooterStop;
+  RunFeeder runFeeder;
+  ReverseFeeder reverseFeeder;
 
   AutonomousDriveForward autonomousDriveForward;
 
@@ -84,6 +90,8 @@ public class RobotContainer {
     controlBoardShooterMidBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_MID);
     controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
     controlBoardShooterStopBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_STOP);
+    controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
+    controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
 
     // Instantiate commands
     tankDrive = new TankDrive(logitechJoystick, driveSubsystem);
@@ -96,6 +104,8 @@ public class RobotContainer {
     runShooterMid = new RunShooterMid(shooterSubsystem);
     runShooterHigh = new RunShooterHigh(shooterSubsystem);
     shooterStop = new ShooterStop(shooterSubsystem);
+    runFeeder = new RunFeeder(shooterSubsystem);
+    reverseFeeder = new ReverseFeeder(shooterSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
 
@@ -125,6 +135,9 @@ public class RobotContainer {
     controlBoardShooterMidBtn.whenPressed(runShooterMid);
     controlBoardShooterHighBtn.whenPressed(runShooterHigh);
     controlBoardShooterStopBtn.whenPressed(shooterStop);
+
+    controlBoardFeedBtn.whenHeld(runFeeder);
+    controlBoardRevFeedBtn.whenHeld(reverseFeeder);
   }
 
   /**

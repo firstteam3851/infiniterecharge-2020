@@ -37,6 +37,9 @@ public final class Constants {
   public static int CONTROL_BOARD_SHOOTER_MID = 2;
   public static int CONTROL_BOARD_SHOOTER_HIGH = 3;
   public static int CONTROL_BOARD_SHOOTER_STOP = 4;
+  public static int CONTROL_BOARD_FEED_BTN = 5;
+  public static int CONTROL_BOARD_REV_FEED_BTN = 6;
+
 
   // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
