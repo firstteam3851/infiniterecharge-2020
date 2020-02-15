@@ -10,17 +10,17 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveForwardTime extends CommandBase {
+public class DriveForTime extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final DriveSubsystem driveSubsystem;
     private final double autonomousDriveSpeed = 0.10;
 
-    private final long driveForwardTime;
+    private final long driveForTime;
     private long endTime;
 
-    public DriveForwardTime(DriveSubsystem subsystem, long timeInMilliseconds) {
+    public DriveForTime(DriveSubsystem subsystem, long timeInMilliseconds) {
         driveSubsystem = subsystem;
-        driveForwardTime = timeInMilliseconds;
+        driveForTime = timeInMilliseconds;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(driveSubsystem);
@@ -29,7 +29,7 @@ public class DriveForwardTime extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        endTime = System.currentTimeMillis() + driveForwardTime;
+        endTime = System.currentTimeMillis() + driveForTime;
     }
 
     // Called every time the scheduler runs while the command is scheduled.

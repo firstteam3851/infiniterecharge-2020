@@ -8,7 +8,7 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveForwardTime;
+import frc.robot.commands.DriveForTime;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -19,10 +19,10 @@ public class AutonomousDriveForward extends SequentialCommandGroup {
    * Create a new autonomous command.
    */
   public AutonomousDriveForward(DriveSubsystem drive) {
-    long driveForwardTimeInMS = 5 * 1000; // 5 seconds
+    long driveForTimeInMS = 2500; // 2.5 seconds
 
     addCommands(
-        new DriveForwardTime(drive, driveForwardTimeInMS)
+        new DriveForTime(drive, driveForTimeInMS)
     );
   }
 }
