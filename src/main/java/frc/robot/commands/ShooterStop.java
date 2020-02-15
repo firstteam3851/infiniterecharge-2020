@@ -16,6 +16,9 @@ public class ShooterStop extends CommandBase {
 
     public ShooterStop(ShooterSubsystem subsystem) {
         shooterSubsystem = subsystem;
+
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(shooterSubsystem);
     }
 
     // Called when the command is initially scheduled.

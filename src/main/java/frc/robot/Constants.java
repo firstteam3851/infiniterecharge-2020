@@ -33,12 +33,12 @@ public final class Constants {
   // OI Control Board - buttons follow label name on board
   public static int CONTROL_BOARD_PORT = 1;
 
-  public static int CONTROL_BOARD_SHOOTER_LOW = 1;
+  public static int CONTROL_BOARD_SHOOTER_LOW = 9;
   public static int CONTROL_BOARD_SHOOTER_MID = 2;
-  public static int CONTROL_BOARD_SHOOTER_HIGH = 3;
-  public static int CONTROL_BOARD_SHOOTER_STOP = 4;
-  public static int CONTROL_BOARD_FEED_BTN = 5;
-  public static int CONTROL_BOARD_REV_FEED_BTN = 6;
+  public static int CONTROL_BOARD_SHOOTER_HIGH = 8;
+  public static int CONTROL_BOARD_SHOOTER_STOP = 5;
+  public static int CONTROL_BOARD_FEED_BTN = 3;
+  public static int CONTROL_BOARD_REV_FEED_BTN = 4;
 
 
   // Drive Subsystem
@@ -46,7 +46,7 @@ public final class Constants {
   public static int DRIVE_TRAIN_RIGHT_MOTOR = 1;
 
   // Spin Subsystem
-  public static int SPINNER_RELAY = 0;
+  public static int SPINNER_RELAY = 3;
   public static I2C.Port COLOR_SENSOR_V3 = I2C.Port.kOnboard;
   public static Set<String> VINYL_RED_RANGE = Set.of("b", "c");
   public static Set<String> VINYL_GREEN_RANGE = Set.of("6", "7");
