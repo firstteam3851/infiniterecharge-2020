@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.I2C;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  // OI
+  // OI Logitech
   public static int LEFT_JOYSTICK_PORT = 0;
   public static int JOYSTICK_LEFT_Y_AXIS = 1;
   public static int JOYSTICK_RIGHT_Y_AXIS = 3;
@@ -30,6 +30,13 @@ public final class Constants {
   public static int JOYSTICK_BUTTON_TWO = 2;
   public static int JOYSTICK_BUTTON_THREE = 3;
 
+  // OI Control Board - buttons follow label name on board
+  public static int CONTROL_BOARD_PORT = 1;
+
+  public static int CONTROL_BOARD_SHOOTER_LOW = 1;
+  public static int CONTROL_BOARD_SHOOTER_MID = 2;
+  public static int CONTROL_BOARD_SHOOTER_HIGH = 3;
+  public static int CONTROL_BOARD_SHOOTER_STOP = 4;
 
   // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
@@ -43,4 +50,10 @@ public final class Constants {
   public static Set<String> VINYL_BLUE_RANGE = Set.of("4", "5");
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
 
+  // Shooter subsystem
+  public static int PICKUP_RELAY = 1;
+  public static int SHOOTER_MOTOR = 2;
+  public static double SHOOTER_HIGH = 0.90;
+  public static double SHOOTER_MID = 0.75;
+  public static double SHOOTER_LOW = 0.60;
 }
