@@ -15,6 +15,7 @@ public class SpinSubsystem extends SubsystemBase {
     ColorSensorV3 colorSensor = new ColorSensorV3(Constants.COLOR_SENSOR_V3);
     
     Color detectedColor = null;
+    String parsedColor = "";
 
     public void rotateCounterClockwise() {
         spinRelay.set(1.0);
@@ -55,14 +56,17 @@ public class SpinSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         detectedColor = colorSensor.getColor();
         double infraredValue = colorSensor.getIR();
+        String tempParsedColor = getColorValue(detectedColor.toString());
+        if (tempParsedColor != "") {
+            parsedColor = tempParsedColor;
+        }
         
-
         SmartDashboard.putNumber("Red", detectedColor.red);
         SmartDashboard.putNumber("Green", detectedColor.green);
         SmartDashboard.putNumber("Blue", detectedColor.blue);
         SmartDashboard.putNumber("IR", infraredValue);
         SmartDashboard.putString("color", detectedColor.toString());
-        SmartDashboard.putString("parsed color", getColorValue(detectedColor.toString()));
+        SmartDashboard.putString("parsed color", parsedColor);
         
     }
 }
