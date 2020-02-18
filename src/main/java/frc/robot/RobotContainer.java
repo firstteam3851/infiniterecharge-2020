@@ -11,7 +11,14 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
+import frc.robot.commands.ReverseFeeder;
+import frc.robot.commands.RunFeeder;
+import frc.robot.commands.RunShooterHigh;
+import frc.robot.commands.RunShooterLow;
+import frc.robot.commands.RunShooterMid;
+import frc.robot.commands.ShooterStop;
 import frc.robot.commands.SpinColorWheelClockwise;
 import frc.robot.commands.SpinColorWheelCounterClockwise;
 import frc.robot.commands.SpinColorWheelStop;
@@ -32,17 +39,34 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem;
   private final SpinSubsystem spinSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
 
   // OI
   private final Joystick logitechJoystick;
   private final JoystickButton logitechJoystickButtonTwo;
   private final JoystickButton logitechJoystickButtonThree;
 
+  private final Joystick controlBoard;
+  private final JoystickButton controlBoardShooterLowBtn;
+  private final JoystickButton controlBoardShooterMidBtn;
+  private final JoystickButton controlBoardShooterHighBtn;
+  private final JoystickButton controlBoardShooterStopBtn;
+  private final JoystickButton controlBoardFeedBtn;
+  private final JoystickButton controlBoardRevFeedBtn;
+
   // Commands
   TankDrive tankDrive;
+
   SpinColorWheelClockwise spinColorWheelClockwise;
   SpinColorWheelCounterClockwise spinColorWheelCounterClockwise;
   SpinColorWheelStop spinColorWheelStop;
+
+  RunShooterLow runShooterLow;
+  RunShooterMid runShooterMid;
+  RunShooterHigh runShooterHigh;
+  ShooterStop shooterStop;
+  RunFeeder runFeeder;
+  ReverseFeeder reverseFeeder;
 
   AutonomousDriveForward autonomousDriveForward;
 
@@ -54,23 +78,41 @@ public class RobotContainer {
     // Instantiate subsystems
     driveSubsystem = new DriveSubsystem();
     spinSubsystem = new SpinSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
 
     // Instantiate IO
     logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
     logitechJoystickButtonTwo = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_TWO);
     logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
+    controlBoard = new Joystick(Constants.CONTROL_BOARD_PORT);
+    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
+    controlBoardShooterMidBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_MID);
+    controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
+    controlBoardShooterStopBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_STOP);
+    controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
+    controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
+
     // Instantiate commands
     tankDrive = new TankDrive(logitechJoystick, driveSubsystem);
+
     spinColorWheelClockwise = new SpinColorWheelClockwise(spinSubsystem);
     spinColorWheelCounterClockwise = new SpinColorWheelCounterClockwise(spinSubsystem);
     spinColorWheelStop = new SpinColorWheelStop(spinSubsystem);
+
+    runShooterLow = new RunShooterLow(shooterSubsystem);
+    runShooterMid = new RunShooterMid(shooterSubsystem);
+    runShooterHigh = new RunShooterHigh(shooterSubsystem);
+    shooterStop = new ShooterStop(shooterSubsystem);
+    runFeeder = new RunFeeder(shooterSubsystem);
+    reverseFeeder = new ReverseFeeder(shooterSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
     spinSubsystem.setDefaultCommand(spinColorWheelStop);
+    shooterSubsystem.setDefaultCommand(shooterStop);
 
     // Configure the button bindingse
     configureButtonBindings();
@@ -84,8 +126,18 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Logitech Bindings
     logitechJoystickButtonTwo.whenHeld(spinColorWheelClockwise);
     logitechJoystickButtonThree.whenHeld(spinColorWheelCounterClockwise);
+
+    // Control Board Bindings
+    controlBoardShooterLowBtn.whenPressed(runShooterLow);
+    controlBoardShooterMidBtn.whenPressed(runShooterMid);
+    controlBoardShooterHighBtn.whenPressed(runShooterHigh);
+    controlBoardShooterStopBtn.whenPressed(shooterStop);
+
+    controlBoardFeedBtn.whenHeld(runFeeder);
+    controlBoardRevFeedBtn.whenHeld(reverseFeeder);
   }
 
   /**

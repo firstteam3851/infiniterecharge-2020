@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.I2C;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  // OI
+  // OI Logitech
   public static int LEFT_JOYSTICK_PORT = 0;
   public static int JOYSTICK_LEFT_Y_AXIS = 1;
   public static int JOYSTICK_RIGHT_Y_AXIS = 3;
@@ -30,17 +30,33 @@ public final class Constants {
   public static int JOYSTICK_BUTTON_TWO = 2;
   public static int JOYSTICK_BUTTON_THREE = 3;
 
+  // OI Control Board - buttons follow label name on board
+  public static int CONTROL_BOARD_PORT = 1;
+
+  public static int CONTROL_BOARD_SHOOTER_LOW = 9;
+  public static int CONTROL_BOARD_SHOOTER_MID = 2;
+  public static int CONTROL_BOARD_SHOOTER_HIGH = 8;
+  public static int CONTROL_BOARD_SHOOTER_STOP = 5;
+  public static int CONTROL_BOARD_FEED_BTN = 3;
+  public static int CONTROL_BOARD_REV_FEED_BTN = 4;
+
 
   // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
   public static int DRIVE_TRAIN_RIGHT_MOTOR = 1;
 
   // Spin Subsystem
-  public static int SPINNER_RELAY = 0;
+  public static int SPINNER_RELAY = 3;
   public static I2C.Port COLOR_SENSOR_V3 = I2C.Port.kOnboard;
   public static Set<String> VINYL_RED_RANGE = Set.of("b", "c");
   public static Set<String> VINYL_GREEN_RANGE = Set.of("6", "7");
   public static Set<String> VINYL_BLUE_RANGE = Set.of("4", "5");
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
 
+  // Shooter subsystem
+  public static int PICKUP_RELAY = 1;
+  public static int SHOOTER_MOTOR = 2;
+  public static double SHOOTER_HIGH = 0.90;
+  public static double SHOOTER_MID = 0.75;
+  public static double SHOOTER_LOW = 0.60;
 }
