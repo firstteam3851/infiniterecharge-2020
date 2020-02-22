@@ -59,5 +59,7 @@ public final class Constants {
   public static double SHOOTER_LOW = 0.60;
 
   // Lift Subsystem
-  
+  public static int LIFT_DOWN_PORT = 0;
+  public static int LIFT_UP_PORT = 1;
+
 }

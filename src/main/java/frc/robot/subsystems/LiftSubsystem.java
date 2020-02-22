@@ -1,18 +1,23 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants;
 
 public class LiftSubsystem extends SubsystemBase {
-  Solenoid 
+  DoubleSolenoid liftSolenoid = new DoubleSolenoid(Constants.LIFT_DOWN_PORT, Constants.LIFT_UP_PORT); 
+
+  public void extendLift() {
+    liftSolenoid.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void retractLift() {
+    liftSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
 
   public void stop() {
+    liftSolenoid.close();
   }
 
   @Override
