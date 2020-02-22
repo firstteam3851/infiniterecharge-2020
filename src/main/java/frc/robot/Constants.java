@@ -54,7 +54,7 @@ public final class Constants {
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
 
   // Shooter subsystem
-  public static int PICKUP_RELAY = 1;
+  public static int PICKUP_RELAY = 2;
   public static int SHOOTER_MOTOR = 2;
   public static double SHOOTER_HIGH = 0.90;
   public static double SHOOTER_MID = 0.75;
