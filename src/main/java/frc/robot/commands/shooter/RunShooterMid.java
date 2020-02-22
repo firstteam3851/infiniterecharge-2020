@@ -5,16 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ReverseFeeder extends CommandBase {
+public class RunShooterMid extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final ShooterSubsystem shooterSubsystem;
 
-    public ReverseFeeder(ShooterSubsystem subsystem) {
+    public RunShooterMid(ShooterSubsystem subsystem) {
         shooterSubsystem = subsystem;
     }
 
@@ -26,7 +27,8 @@ public class ReverseFeeder extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.reverseFeeder();
+        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_MID);
+        shooterSubsystem.runShooter();
     }
 
     // Called once the command ends or is interrupted.

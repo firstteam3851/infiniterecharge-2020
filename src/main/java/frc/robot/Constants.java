@@ -45,11 +45,13 @@ public final class Constants {
 
   // Spin Subsystem
   public static int SPINNER_RELAY = 3;
+  public static int SPINNER_ARM_WHEEL_SOLENOID = 0;
   public static I2C.Port COLOR_SENSOR_V3 = I2C.Port.kOnboard;
   public static Set<String> VINYL_RED_RANGE = Set.of("b", "c");
   public static Set<String> VINYL_GREEN_RANGE = Set.of("6", "7");
   public static Set<String> VINYL_BLUE_RANGE = Set.of("4", "5");
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
+  public static String[] SPINNER_COLOR_ORDER = ['B', 'G', 'R', 'Y'];
 
   // Shooter subsystem
   public static int PICKUP_RELAY = 2;
