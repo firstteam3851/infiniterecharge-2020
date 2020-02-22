@@ -36,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // Shared methods
     public void stop() {
-        pickupRelay.stopMotor();
+        stopFeeder();
         shooterMotor.stopMotor();
     }
 
