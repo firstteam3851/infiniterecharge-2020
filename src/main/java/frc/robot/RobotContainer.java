@@ -73,6 +73,7 @@ public class RobotContainer {
   RetractLift retractLift;
 
   AutonomousDriveForward autonomousDriveForward;
+  AutonomousRotationControl autonomousRotationControl;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -113,6 +114,7 @@ public class RobotContainer {
     retractLift = new RetractLift(liftSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
+    autonomousRotationControl = new AutonomousRotationControl(spinSubsystem, driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);

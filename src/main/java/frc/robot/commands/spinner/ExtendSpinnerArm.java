@@ -22,6 +22,7 @@ public class ExtendSpinnerArm extends CommandBase {
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(spinSubsystem);
+        addRequirements(driverSubsystem);
     }
 
     // Called when the command is initially scheduled.

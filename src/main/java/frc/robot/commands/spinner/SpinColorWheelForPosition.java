@@ -8,16 +8,14 @@
 package frc.robot.commands.spinner;
 
 import frc.robot.subsystems.SpinSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetRotationColorValues extends CommandBase {
+public class SpinColorWheelForPosition extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SpinSubsystem spinSubsystem;
-    private final DriveSubsystem driverSubsystem;
 
-    public SetRotationColorValues(SpinSubsystem inputSpinsubsystem ) {
-        spinSubsystem = inputSpinsubsystem;
+    public SpinColorWheelForPosition(SpinSubsystem subsystem) {
+        spinSubsystem = subsystem;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(spinSubsystem);
@@ -31,17 +29,18 @@ public class SetRotationColorValues extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        spinSubsystem.extendSpinnerArm();
+        spinSubsystem.rotateClockwise();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        spinSubsystem.stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return spinSubsystem.hasCompletedRotation();
     }
 }

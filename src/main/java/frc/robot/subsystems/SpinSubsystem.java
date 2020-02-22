@@ -22,7 +22,8 @@ public class SpinSubsystem extends SubsystemBase {
 
     String initialSpinnerColor = "";
     String rotateToColor = "";
-    Integer rotationTimes = 7;
+    Integer rotationTimes = 7; // 3.5 rotations * 2 for color wheel configuration
+    Integer numRotations = 0;
 
 
     // Mechanical related methods
@@ -47,6 +48,21 @@ public class SpinSubsystem extends SubsystemBase {
 
     public void setRotationColorValues() {
         initialSpinnerColor = getColorValue(colorSensor.getColor().toString());
+        rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor) + 1];
+    }
+
+    public void completeRotationControl() {
+        rotateToColor = "";
+        numRotations = 0;
+    }
+
+    public void hasCompletedRotation() {
+        boolean hasCompletedRotation = numRotations >= rotationsTimes;
+        if (hasCompletedRotation == true) {
+            completeRotationControl();
+            return true;
+        }
+        return false;
     }
 
     public String getColorValue(String rawColorValue) {
@@ -71,6 +87,16 @@ public class SpinSubsystem extends SubsystemBase {
         return "";
     }
 
+    private int getColorIndex(String inputColor) {
+        for (int i = 0; i < Constants.SPINNER_COLOR_ORDER.length; i++) {
+            if (Constants.SPINNER_COLOR_ORDER[i] === inputColor) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     public void stop() {
         spinRelay.stopMotor();
     }
@@ -83,6 +109,12 @@ public class SpinSubsystem extends SubsystemBase {
             currentColor = tempcurrentColor;
         }
         SmartDashboard.putString("current color", currentColor);
+
+        if (rotateToColor != "") {
+            if (currentColor == rotateToColor) {
+                numRotations++;
+            }
+        }
         
     }
 }
