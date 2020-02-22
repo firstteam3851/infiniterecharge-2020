@@ -47,10 +47,8 @@ public class RobotContainer {
   private final JoystickButton logitechJoystickButtonThree;
 
   private final Joystick controlBoard;
-  private final JoystickButton controlBoardShooterLowBtn;
-  private final JoystickButton controlBoardShooterMidBtn;
   private final JoystickButton controlBoardShooterHighBtn;
-  private final JoystickButton controlBoardShooterStopBtn;
+  private final JoystickButton controlBoardShooterLowBtn;
   private final JoystickButton controlBoardFeedBtn;
   private final JoystickButton controlBoardRevFeedBtn;
 
@@ -86,10 +84,8 @@ public class RobotContainer {
     logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
     controlBoard = new Joystick(Constants.CONTROL_BOARD_PORT);
-    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
-    controlBoardShooterMidBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_MID);
     controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
-    controlBoardShooterStopBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_STOP);
+    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
     controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
     controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
 
@@ -101,7 +97,6 @@ public class RobotContainer {
     spinColorWheelStop = new SpinColorWheelStop(spinSubsystem);
 
     runShooterLow = new RunShooterLow(shooterSubsystem);
-    runShooterMid = new RunShooterMid(shooterSubsystem);
     runShooterHigh = new RunShooterHigh(shooterSubsystem);
     shooterStop = new ShooterStop(shooterSubsystem);
     runFeeder = new RunFeeder(shooterSubsystem);
@@ -112,9 +107,9 @@ public class RobotContainer {
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
     spinSubsystem.setDefaultCommand(spinColorWheelStop);
-    shooterSubsystem.setDefaultCommand(shooterStop);
+    shooterSubsystem.setDefaultCommand(runShooterLow);
 
-    // Configure the button bindingse
+    // Configure the button bindings
     configureButtonBindings();
 
   }
@@ -132,9 +127,7 @@ public class RobotContainer {
 
     // Control Board Bindings
     controlBoardShooterLowBtn.whenPressed(runShooterLow);
-    controlBoardShooterMidBtn.whenPressed(runShooterMid);
     controlBoardShooterHighBtn.whenPressed(runShooterHigh);
-    controlBoardShooterStopBtn.whenPressed(shooterStop);
 
     controlBoardFeedBtn.whenHeld(runFeeder);
     controlBoardRevFeedBtn.whenHeld(reverseFeeder);

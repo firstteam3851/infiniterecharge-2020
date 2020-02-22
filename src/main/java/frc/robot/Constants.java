@@ -33,10 +33,8 @@ public final class Constants {
   // OI Control Board - buttons follow label name on board
   public static int CONTROL_BOARD_PORT = 1;
 
-  public static int CONTROL_BOARD_SHOOTER_LOW = 9;
-  public static int CONTROL_BOARD_SHOOTER_MID = 2;
-  public static int CONTROL_BOARD_SHOOTER_HIGH = 8;
-  public static int CONTROL_BOARD_SHOOTER_STOP = 5;
+  public static int CONTROL_BOARD_SHOOTER_HIGH = 9;
+  public static int CONTROL_BOARD_SHOOTER_LOW = 8;
   public static int CONTROL_BOARD_FEED_BTN = 3;
   public static int CONTROL_BOARD_REV_FEED_BTN = 4;
 
@@ -59,4 +57,7 @@ public final class Constants {
   public static double SHOOTER_HIGH = 0.90;
   public static double SHOOTER_MID = 0.75;
   public static double SHOOTER_LOW = 0.60;
+
+  // Lift Subsystem
+  
 }
