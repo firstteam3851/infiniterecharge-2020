@@ -51,7 +51,7 @@ public final class Constants {
   public static Set<String> VINYL_GREEN_RANGE = Set.of("6", "7");
   public static Set<String> VINYL_BLUE_RANGE = Set.of("4", "5");
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
-  public static String[] SPINNER_COLOR_ORDER = ['B', 'G', 'R', 'Y'];
+  public static String[] SPINNER_COLOR_ORDER = {"B", "G", "R", "Y"};
 
   // Shooter subsystem
   public static int PICKUP_RELAY = 2;
@@ -63,5 +63,4 @@ public final class Constants {
   // Lift Subsystem
   public static int LIFT_DOWN_PORT = 0;
   public static int LIFT_UP_PORT = 1;
-
 }

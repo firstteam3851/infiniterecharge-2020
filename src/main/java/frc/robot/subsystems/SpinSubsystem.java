@@ -56,8 +56,8 @@ public class SpinSubsystem extends SubsystemBase {
         numRotations = 0;
     }
 
-    public void hasCompletedRotation() {
-        boolean hasCompletedRotation = numRotations >= rotationsTimes;
+    public boolean hasCompletedRotation() {
+        boolean hasCompletedRotation = numRotations >= rotationTimes;
         if (hasCompletedRotation == true) {
             completeRotationControl();
             return true;
@@ -89,7 +89,7 @@ public class SpinSubsystem extends SubsystemBase {
 
     private int getColorIndex(String inputColor) {
         for (int i = 0; i < Constants.SPINNER_COLOR_ORDER.length; i++) {
-            if (Constants.SPINNER_COLOR_ORDER[i] === inputColor) {
+            if (Constants.SPINNER_COLOR_ORDER[i] == inputColor) {
                 return i;
             }
         }

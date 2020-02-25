@@ -8,16 +8,14 @@
 package frc.robot.commands.spinner;
 
 import frc.robot.subsystems.SpinSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetRotationColorValues extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SpinSubsystem spinSubsystem;
-    private final DriveSubsystem driverSubsystem;
 
-    public SetRotationColorValues(SpinSubsystem inputSpinsubsystem ) {
-        spinSubsystem = inputSpinsubsystem;
+    public SetRotationColorValues(SpinSubsystem inputSpinSubsystem) {
+        spinSubsystem = inputSpinSubsystem;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(spinSubsystem);

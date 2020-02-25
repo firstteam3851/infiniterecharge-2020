@@ -10,8 +10,8 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.spinner.ExtendSpinnerArm;
 import frc.robot.commands.spinner.SetRotationColorValues;
-import frc.robot.commands.spinner.SpinColorWheelClockwise;
-import frc.robot.subsystems.SpinnerSubsystem;
+import frc.robot.commands.spinner.SpinColorWheelForPosition;
+import frc.robot.subsystems.SpinSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -21,9 +21,7 @@ public class AutonomousRotationControl extends SequentialCommandGroup {
   /**
    * Create a new autonomous command.
    */
-  public AutonomousRotationControl(SpinnerSubsystem spinner, DriveSubsystem driver) {
-    long driveForTimeInMS = 2500; // 2.5 seconds
-
+  public AutonomousRotationControl(SpinSubsystem spinner, DriveSubsystem driver) {
     addCommands(
         new ExtendSpinnerArm(spinner, driver),
         new SetRotationColorValues(spinner),

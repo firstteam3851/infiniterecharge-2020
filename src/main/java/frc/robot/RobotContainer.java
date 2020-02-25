@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
 import frc.robot.commands.shooter.ReverseFeeder;
@@ -24,11 +25,11 @@ import frc.robot.commands.spinner.SpinColorWheelCounterClockwise;
 import frc.robot.commands.spinner.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.autonomous.AutonomousDriveForward;
+import frc.robot.commands.autonomous.AutonomousRotationControl;
 import frc.robot.commands.lift.ExtendLift;
 import frc.robot.commands.lift.RetractLift;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
