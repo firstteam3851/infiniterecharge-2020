@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.commands.ReverseFeeder;
 import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunShooterHigh;
@@ -24,6 +25,8 @@ import frc.robot.commands.SpinColorWheelCounterClockwise;
 import frc.robot.commands.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.autonomous.AutonomousDriveForward;
+import frc.robot.commands.lift.ExtendLift;
+import frc.robot.commands.lift.RetractLift;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
@@ -40,6 +43,7 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem;
   private final SpinSubsystem spinSubsystem;
   private final ShooterSubsystem shooterSubsystem;
+  private final LiftSubsystem liftSubsystem;
 
   // OI
   private final Joystick logitechJoystick;
@@ -47,10 +51,8 @@ public class RobotContainer {
   private final JoystickButton logitechJoystickButtonThree;
 
   private final Joystick controlBoard;
-  private final JoystickButton controlBoardShooterLowBtn;
-  private final JoystickButton controlBoardShooterMidBtn;
   private final JoystickButton controlBoardShooterHighBtn;
-  private final JoystickButton controlBoardShooterStopBtn;
+  private final JoystickButton controlBoardShooterLowBtn;
   private final JoystickButton controlBoardFeedBtn;
   private final JoystickButton controlBoardRevFeedBtn;
 
@@ -68,6 +70,9 @@ public class RobotContainer {
   RunFeeder runFeeder;
   ReverseFeeder reverseFeeder;
 
+  ExtendLift extendLift;
+  RetractLift retractLift;
+
   AutonomousDriveForward autonomousDriveForward;
 
   /**
@@ -79,6 +84,7 @@ public class RobotContainer {
     driveSubsystem = new DriveSubsystem();
     spinSubsystem = new SpinSubsystem();
     shooterSubsystem = new ShooterSubsystem();
+    liftSubsystem = new LiftSubsystem();
 
     // Instantiate IO
     logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
@@ -86,10 +92,8 @@ public class RobotContainer {
     logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
     controlBoard = new Joystick(Constants.CONTROL_BOARD_PORT);
-    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
-    controlBoardShooterMidBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_MID);
     controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
-    controlBoardShooterStopBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_STOP);
+    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
     controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
     controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
 
@@ -101,22 +105,23 @@ public class RobotContainer {
     spinColorWheelStop = new SpinColorWheelStop(spinSubsystem);
 
     runShooterLow = new RunShooterLow(shooterSubsystem);
-    runShooterMid = new RunShooterMid(shooterSubsystem);
     runShooterHigh = new RunShooterHigh(shooterSubsystem);
     shooterStop = new ShooterStop(shooterSubsystem);
     runFeeder = new RunFeeder(shooterSubsystem);
     reverseFeeder = new ReverseFeeder(shooterSubsystem);
+
+    extendLift = new ExtendLift(liftSubsystem);
+    retractLift = new RetractLift(liftSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
     spinSubsystem.setDefaultCommand(spinColorWheelStop);
-    shooterSubsystem.setDefaultCommand(shooterStop);
+    shooterSubsystem.setDefaultCommand(runShooterLow);
 
-    // Configure the button bindingse
+    // Configure the button bindings
     configureButtonBindings();
-
   }
 
   /**
@@ -132,12 +137,15 @@ public class RobotContainer {
 
     // Control Board Bindings
     controlBoardShooterLowBtn.whenPressed(runShooterLow);
-    controlBoardShooterMidBtn.whenPressed(runShooterMid);
     controlBoardShooterHighBtn.whenPressed(runShooterHigh);
-    controlBoardShooterStopBtn.whenPressed(shooterStop);
 
     controlBoardFeedBtn.whenHeld(runFeeder);
     controlBoardRevFeedBtn.whenHeld(reverseFeeder);
+
+    /* TODO button bindings for:
+      * extractLift
+      * retractLift
+    */
   }
 
   /**
