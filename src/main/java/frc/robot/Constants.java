@@ -53,6 +53,8 @@ public final class Constants {
   public static Set<String> VINYL_YELLOW_RANGE = Set.of("9");
   public static String[] SPINNER_COLOR_ORDER = {"B", "G", "R", "Y"};
 
+  public static long WAIT_FOR_COLOR_VALUES = 5 * 1000; // 5 second wait
+
   // Shooter subsystem
   public static int PICKUP_RELAY = 2;
   public static int SHOOTER_MOTOR = 2;
