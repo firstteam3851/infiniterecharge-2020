@@ -13,16 +13,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
-import frc.robot.subsystems.LiftSubsystem;
-import frc.robot.commands.ReverseFeeder;
-import frc.robot.commands.RunFeeder;
-import frc.robot.commands.RunShooterHigh;
-import frc.robot.commands.RunShooterLow;
-import frc.robot.commands.RunShooterMid;
-import frc.robot.commands.ShooterStop;
-import frc.robot.commands.SpinColorWheelClockwise;
-import frc.robot.commands.SpinColorWheelCounterClockwise;
-import frc.robot.commands.SpinColorWheelStop;
+import frc.robot.commands.shooter.ReverseFeeder;
+import frc.robot.commands.shooter.RunFeeder;
+import frc.robot.commands.shooter.RunShooterHigh;
+import frc.robot.commands.shooter.RunShooterLow;
+import frc.robot.commands.shooter.RunShooterMid;
+import frc.robot.commands.shooter.ShooterStop;
+import frc.robot.commands.spinner.SpinColorWheelClockwise;
+import frc.robot.commands.spinner.SpinColorWheelCounterClockwise;
+import frc.robot.commands.spinner.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.autonomous.AutonomousDriveForward;
 import frc.robot.commands.lift.ExtendLift;
@@ -74,6 +73,7 @@ public class RobotContainer {
   RetractLift retractLift;
 
   AutonomousDriveForward autonomousDriveForward;
+  AutonomousRotationControl autonomousRotationControl;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -114,6 +114,7 @@ public class RobotContainer {
     retractLift = new RetractLift(liftSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
+    autonomousRotationControl = new AutonomousRotationControl(spinSubsystem, driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);

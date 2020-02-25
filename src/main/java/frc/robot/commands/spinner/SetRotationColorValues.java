@@ -5,18 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.spinner;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SpinSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class RunShooterLow extends CommandBase {
+public class SetRotationColorValues extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    private final ShooterSubsystem shooterSubsystem;
+    private final SpinSubsystem spinSubsystem;
+    private final DriveSubsystem driverSubsystem;
 
-    public RunShooterLow(ShooterSubsystem subsystem) {
-        shooterSubsystem = subsystem;
+    public SetRotationColorValues(SpinSubsystem inputSpinsubsystem ) {
+        spinSubsystem = inputSpinsubsystem;
+
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(spinSubsystem);
     }
 
     // Called when the command is initially scheduled.
@@ -27,14 +31,12 @@ public class RunShooterLow extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_LOW);
-        shooterSubsystem.runShooter();
+        spinSubsystem.extendSpinnerArm();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.stopFeeder();
     }
 
     // Returns true when the command should end.

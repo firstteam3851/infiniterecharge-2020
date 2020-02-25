@@ -5,36 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
-import frc.robot.subsystems.SpinSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinColorWheelStop extends CommandBase {
+public class RunFeeder extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    private final SpinSubsystem spinSubsystem;
+    private final ShooterSubsystem shooterSubsystem;
 
-    public SpinColorWheelStop(SpinSubsystem subsystem) {
-        spinSubsystem = subsystem;
-        addRequirements(spinSubsystem);
+    public RunFeeder(ShooterSubsystem subsystem) {
+        shooterSubsystem = subsystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        spinSubsystem.stop();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        spinSubsystem.stop();
+        shooterSubsystem.startFeeder();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        spinSubsystem.stop();
+        shooterSubsystem.stopFeeder();
     }
 
     // Returns true when the command should end.

@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.spinner;
 
 import frc.robot.subsystems.SpinSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinColorWheelClockwise extends CommandBase {
+public class SpinColorWheelForPosition extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SpinSubsystem spinSubsystem;
 
-    public SpinColorWheelClockwise(SpinSubsystem subsystem) {
+    public SpinColorWheelForPosition(SpinSubsystem subsystem) {
         spinSubsystem = subsystem;
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -41,6 +41,6 @@ public class SpinColorWheelClockwise extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return spinSubsystem.hasCompletedRotation();
     }
 }
