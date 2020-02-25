@@ -25,6 +25,7 @@ import frc.robot.commands.spinner.SpinColorWheelCounterClockwise;
 import frc.robot.commands.spinner.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.autonomous.AutonomousDriveForward;
+import frc.robot.commands.autonomous.AutonomousPositionControl;
 import frc.robot.commands.autonomous.AutonomousRotationControl;
 import frc.robot.commands.lift.ExtendLift;
 import frc.robot.commands.lift.RetractLift;
@@ -75,6 +76,7 @@ public class RobotContainer {
 
   AutonomousDriveForward autonomousDriveForward;
   AutonomousRotationControl autonomousRotationControl;
+  AutonomousPositionControl autonomousPositionControl;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -116,6 +118,7 @@ public class RobotContainer {
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
     autonomousRotationControl = new AutonomousRotationControl(spinSubsystem, driveSubsystem);
+    autonomousPositionControl = new AutonomousPositionControl(spinSubsystem, driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
@@ -147,6 +150,8 @@ public class RobotContainer {
     /* TODO button bindings for:
       * extractLift
       * retractLift
+      * autonomousRotationControl
+      * autonomousPositionControl
     */
   }
 
