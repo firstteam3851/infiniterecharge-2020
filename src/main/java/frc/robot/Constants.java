@@ -62,7 +62,7 @@ public final class Constants {
   public static int SHOOTER_MOTOR = 2;
   public static double SHOOTER_HIGH = 0.90;
   public static double SHOOTER_MID = 0.75;
-  public static double SHOOTER_LOW = 0.60;
+  public static double SHOOTER_LOW = 0.25;
 
   // Lift Subsystem
   public static int LIFT_DOWN_PORT = 0;

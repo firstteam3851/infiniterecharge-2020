@@ -10,7 +10,7 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
     Relay pickupRelay = new Relay(Constants.PICKUP_RELAY);
     SpeedController shooterMotor = new Jaguar(Constants.SHOOTER_MOTOR);
-    double shooterSpeed = Constants.SHOOTER_HIGH; // Default to 90% speed
+    double shooterSpeed = Constants.SHOOTER_LOW;
 
     // Feeder methods
     public void startFeeder() {

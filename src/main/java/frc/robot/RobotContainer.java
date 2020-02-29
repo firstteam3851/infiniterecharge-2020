@@ -18,7 +18,6 @@ import frc.robot.commands.shooter.ReverseFeeder;
 import frc.robot.commands.shooter.RunFeeder;
 import frc.robot.commands.shooter.RunShooterHigh;
 import frc.robot.commands.shooter.RunShooterLow;
-import frc.robot.commands.shooter.RunShooterMid;
 import frc.robot.commands.shooter.ShooterStop;
 import frc.robot.commands.spinner.SpinColorWheelClockwise;
 import frc.robot.commands.spinner.SpinColorWheelCounterClockwise;
@@ -44,7 +43,7 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem;
   private final SpinSubsystem spinSubsystem;
   private final ShooterSubsystem shooterSubsystem;
-  private final LiftSubsystem liftSubsystem;
+  // private final LiftSubsystem liftSubsystem;
 
   // OI
   private final Joystick logitechJoystick;
@@ -65,7 +64,6 @@ public class RobotContainer {
   SpinColorWheelStop spinColorWheelStop;
 
   RunShooterLow runShooterLow;
-  RunShooterMid runShooterMid;
   RunShooterHigh runShooterHigh;
   ShooterStop shooterStop;
   RunFeeder runFeeder;
@@ -87,7 +85,7 @@ public class RobotContainer {
     driveSubsystem = new DriveSubsystem();
     spinSubsystem = new SpinSubsystem();
     shooterSubsystem = new ShooterSubsystem();
-    liftSubsystem = new LiftSubsystem();
+    // liftSubsystem = new LiftSubsystem();
 
     // Instantiate IO
     logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
@@ -113,8 +111,8 @@ public class RobotContainer {
     runFeeder = new RunFeeder(shooterSubsystem);
     reverseFeeder = new ReverseFeeder(shooterSubsystem);
 
-    extendLift = new ExtendLift(liftSubsystem);
-    retractLift = new RetractLift(liftSubsystem);
+    // extendLift = new ExtendLift(liftSubsystem);
+    // retractLift = new RetractLift(liftSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
     autonomousRotationControl = new AutonomousRotationControl(spinSubsystem, driveSubsystem);
@@ -123,7 +121,7 @@ public class RobotContainer {
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
     spinSubsystem.setDefaultCommand(spinColorWheelStop);
-    shooterSubsystem.setDefaultCommand(runShooterLow);
+    shooterSubsystem.setDefaultCommand(shooterStop);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -145,6 +143,7 @@ public class RobotContainer {
     controlBoardSpinPositionBtn.whenPressed(autonomousPositionControl);
 
     controlBoardFeederBtn.toggleWhenPressed(runFeeder);
+    controlBoardShooterBtn.toggleWhenPressed(runShooterLow);
 
     /* TODO command bindings for:
       * extractLift

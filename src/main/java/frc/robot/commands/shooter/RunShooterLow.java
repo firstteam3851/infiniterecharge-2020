@@ -17,17 +17,19 @@ public class RunShooterLow extends CommandBase {
 
     public RunShooterLow(ShooterSubsystem subsystem) {
         shooterSubsystem = subsystem;
+
+        addRequirements(shooterSubsystem);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_LOW);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_LOW);
         shooterSubsystem.runShooter();
     }
 
