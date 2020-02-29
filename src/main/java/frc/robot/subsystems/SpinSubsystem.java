@@ -41,8 +41,17 @@ public class SpinSubsystem extends SubsystemBase {
 
     // Color related methods
     public void setGameColor() {
-        String initialColor = DriverStation.getInstance().getGameSpecificMessage();
-        gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialColor) + 2];
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if (gameData.length() > 0) {
+            gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex("" + gameData.charAt(0)) + 2];
+        }
+    }
+
+    public void setCurrentColor() {
+        String tempCurrentColor = getColorValue(colorSensor.getColor().toString());
+        if (tempCurrentColor != "") {
+            currentColor = tempCurrentColor;
+        }
     }
 
     public boolean atGameColor() {
@@ -75,7 +84,6 @@ public class SpinSubsystem extends SubsystemBase {
     public String getColorValue(String rawColorValue) {
         // Get first character of hash
         String parsedHashValue = rawColorValue.substring(37, 38);
-        SmartDashboard.putString("ParsedHashValue", parsedHashValue);
 
         // match with ranges
         if (Constants.VINYL_RED_RANGE.contains(parsedHashValue)) {
@@ -103,22 +111,6 @@ public class SpinSubsystem extends SubsystemBase {
         return -1;
     }
 
-    private String setGameDataColor() {
-        String gameData = DriverStation.getInstance().getGameSpecificMessage();
-        if (gameData.length() > 0) {
-            gameDataColor = "" + gameData.charAt(0);
-        }
-
-        return gameDataColor;
-    }
-
-    private void setCurrentColor() {
-        String tempCurrentColor = getColorValue(colorSensor.getColor().toString());
-        if (tempCurrentColor != "") {
-            currentColor = tempCurrentColor;
-        }
-    }
-
     public void stop() {
         spinRelay.stopMotor();
     }
@@ -126,8 +118,7 @@ public class SpinSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        setCurrentColor();
-        setGameDataColor();
+        setGameColor();
 
         SmartDashboard.putString("game data color", gameDataColor);
         SmartDashboard.putString("current color", currentColor);
