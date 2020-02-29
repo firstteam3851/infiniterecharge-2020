@@ -23,7 +23,7 @@ public class AutonomousRotationControl extends SequentialCommandGroup {
    */
   public AutonomousRotationControl(SpinSubsystem spinner, DriveSubsystem driver) {
     addCommands(
-        new ExtendSpinnerArm(spinner, driver),
+        // new ExtendSpinnerArm(spinner, driver),
         new SetRotationColorValues(spinner),
         new SpinColorWheelForPosition(spinner)
     );

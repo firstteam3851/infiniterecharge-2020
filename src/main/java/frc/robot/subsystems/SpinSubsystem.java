@@ -20,6 +20,7 @@ public class SpinSubsystem extends SubsystemBase {
     String gameDataColor = "";
 
     String rotateToColor = "";
+    String previousColor = "";
     Integer rotationTimes = 7; // 3.5 rotations * 2 for color wheel configuration
     Integer numRotations = 0;
 
@@ -40,7 +41,12 @@ public class SpinSubsystem extends SubsystemBase {
 
     // Color related methods
     public void setGameColor() {
-        gameDataColor = DriverStation.getInstance().getGameSpecificMessage();
+        String initialColor = DriverStation.getInstance().getGameSpecificMessage();
+        gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialColor) + 2];
+    }
+
+    public boolean atGameColor() {
+        return currentColor == gameDataColor;
     }
 
     public void setRotationColorValues() {
@@ -48,23 +54,22 @@ public class SpinSubsystem extends SubsystemBase {
         rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor) + 1];
     }
 
-    public void completeRotationControl() {
+    public void incrementNumberRotations() {
+        if (rotateToColor != "") {
+            if (currentColor == rotateToColor && currentColor != previousColor) {
+                numRotations++;
+                previousColor = currentColor;
+            }
+        }
+    }
+
+    public void resetRotationControl() {
         rotateToColor = "";
         numRotations = 0;
     }
 
     public boolean hasCompletedRotation() {
-        boolean hasCompletedRotation = numRotations >= rotationTimes;
-        if (hasCompletedRotation == true) {
-            completeRotationControl();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean atGameColor() {
-        SmartDashboard.putBoolean("POSITION CONTROL currentColor == gameDataColor", currentColor == gameDataColor);
-        return currentColor == gameDataColor;
+        return numRotations >= rotationTimes;
     }
 
     public String getColorValue(String rawColorValue) {
@@ -95,35 +100,23 @@ public class SpinSubsystem extends SubsystemBase {
                 return i;
             }
         }
-
         return -1;
     }
 
-    private String getGameDataColor() {
+    private String setGameDataColor() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if (gameData.length() > 0) {
             gameDataColor = "" + gameData.charAt(0);
         }
-        SmartDashboard.putString("game data color", gameDataColor);
 
         return gameDataColor;
     }
 
-    private void getCurrentColor() {
+    private void setCurrentColor() {
         String tempCurrentColor = getColorValue(colorSensor.getColor().toString());
         if (tempCurrentColor != "") {
             currentColor = tempCurrentColor;
         }
-        SmartDashboard.putString("current color", currentColor);
-    }
-
-    private void incrementNumberRotations() {
-        if (rotateToColor != "") {
-            if (currentColor == rotateToColor) {
-                numRotations++;
-            }
-        }
-        SmartDashboard.putString("ROTATOIN CONTROL numRotations", numRotations.toString());
     }
 
     public void stop() {
@@ -133,8 +126,14 @@ public class SpinSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        getCurrentColor();
-        getGameDataColor();
-        incrementNumberRotations();
+        setCurrentColor();
+        setGameDataColor();
+
+        SmartDashboard.putString("game data color", gameDataColor);
+        SmartDashboard.putString("current color", currentColor);
+        SmartDashboard.putString("ROTATION CONTROL numRotations", numRotations.toString());
+        SmartDashboard.putBoolean("ROTATION CONTROL is finished rotating", numRotations >= rotationTimes);
+        SmartDashboard.putBoolean("POSITION CONTROL is finished rotating", currentColor == gameDataColor);
+
     }
 }
