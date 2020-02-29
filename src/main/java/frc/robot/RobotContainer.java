@@ -52,10 +52,10 @@ public class RobotContainer {
   private final JoystickButton logitechJoystickButtonThree;
 
   private final Joystick controlBoard;
-  private final JoystickButton controlBoardShooterHighBtn;
-  private final JoystickButton controlBoardShooterLowBtn;
-  private final JoystickButton controlBoardFeedBtn;
-  private final JoystickButton controlBoardRevFeedBtn;
+  private final JoystickButton controlBoardShooterBtn;
+  private final JoystickButton controlBoardFeederBtn;
+  private final JoystickButton controlBoardSpinRotationBtn;
+  private final JoystickButton controlBoardSpinPositionBtn;
 
   // Commands
   TankDrive tankDrive;
@@ -95,10 +95,10 @@ public class RobotContainer {
     logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
     controlBoard = new Joystick(Constants.CONTROL_BOARD_PORT);
-    controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
-    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
-    controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
-    controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
+    controlBoardShooterBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER);
+    controlBoardFeederBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEEDER);
+    controlBoardSpinRotationBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SPIN_ROTATION);
+    controlBoardSpinPositionBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SPIN_POSITION);
 
     // Instantiate commands
     tankDrive = new TankDrive(logitechJoystick, driveSubsystem);
@@ -141,17 +141,14 @@ public class RobotContainer {
     logitechJoystickButtonThree.whenHeld(spinColorWheelCounterClockwise);
 
     // Control Board Bindings
-    controlBoardShooterLowBtn.whenPressed(runShooterLow);
-    controlBoardShooterHighBtn.whenPressed(runShooterHigh);
+    controlBoardSpinRotationBtn.whenPressed(autonomousRotationControl);
+    controlBoardSpinPositionBtn.whenPressed(autonomousPositionControl);
 
-    controlBoardFeedBtn.whenHeld(runFeeder);
-    controlBoardRevFeedBtn.whenHeld(reverseFeeder);
+    controlBoardFeederBtn.toggleWhenPressed(runFeeder);
 
-    /* TODO button bindings for:
+    /* TODO command bindings for:
       * extractLift
       * retractLift
-      * autonomousRotationControl
-      * autonomousPositionControl
     */
   }
 

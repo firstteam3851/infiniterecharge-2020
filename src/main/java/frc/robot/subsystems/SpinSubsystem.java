@@ -61,6 +61,7 @@ public class SpinSubsystem extends SubsystemBase {
     public void setRotationColorValues() {
         String initialSpinnerColor = getColorValue(colorSensor.getColor().toString());
         rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor) + 1];
+        previousColor = "";
     }
 
     public void incrementNumberRotations() {

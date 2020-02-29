@@ -33,11 +33,13 @@ public final class Constants {
   // OI Control Board - buttons follow label name on board
   public static int CONTROL_BOARD_PORT = 1;
 
-  public static int CONTROL_BOARD_SHOOTER_HIGH = 9;
-  public static int CONTROL_BOARD_SHOOTER_LOW = 8;
+  public static int CONTROL_BOARD_FEEDER = 9;
+  public static int CONTROL_BOARD_SHOOTER = 8;
   public static int CONTROL_BOARD_FEED_BTN = 3;
-  public static int CONTROL_BOARD_REV_FEED_BTN = 4;
-
+  public static int CONTROL_BOARD_SPIN_ROTATION = 5;
+  public static int CONTROL_BOARD_SPIN_POSITION = 2;
+  public static int CONTROL_BOARD_RAISE_LIFT = 3;
+  public static int CONTROL_BOARD_RAISE_BOT = 4;
 
   // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
