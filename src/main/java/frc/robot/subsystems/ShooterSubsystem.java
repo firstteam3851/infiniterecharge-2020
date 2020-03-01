@@ -25,6 +25,10 @@ public class ShooterSubsystem extends SubsystemBase {
         pickupRelay.set(Relay.Value.kOff);
     }
 
+    public void stopShooter() {
+        shooterMotor.stopMotor();
+    }
+
     // Shooter motor methods
     public void setShooterSpeed(double speed) {
         shooterSpeed = speed;

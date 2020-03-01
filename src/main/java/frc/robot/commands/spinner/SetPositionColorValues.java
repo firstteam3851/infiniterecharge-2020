@@ -5,42 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.spinner;
 
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.SpinSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShooterStop extends CommandBase {
+public class SetPositionColorValues extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    private final ShooterSubsystem shooterSubsystem;
+    private final SpinSubsystem spinSubsystem;
+    private long endTime;
 
-    public ShooterStop(ShooterSubsystem subsystem) {
-        shooterSubsystem = subsystem;
+    public SetPositionColorValues(SpinSubsystem inputSpinSubsystem) {
+        spinSubsystem = inputSpinSubsystem;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(shooterSubsystem);
+        addRequirements(spinSubsystem);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        endTime = System.currentTimeMillis() + Constants.WAIT_FOR_COLOR_VALUES;
+        spinSubsystem.setGameColor();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.stopShooter();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.stopShooter();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return System.currentTimeMillis() >= endTime;
     }
 }

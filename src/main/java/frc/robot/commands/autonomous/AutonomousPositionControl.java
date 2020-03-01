@@ -9,6 +9,7 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.spinner.ExtendSpinnerArm;
+import frc.robot.commands.spinner.SetPositionColorValues;
 import frc.robot.commands.spinner.SpinColorWheelToGameColor;
 import frc.robot.subsystems.SpinSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -22,7 +23,8 @@ public class AutonomousPositionControl extends SequentialCommandGroup {
    */
   public AutonomousPositionControl(SpinSubsystem spinner, DriveSubsystem driver) {
     addCommands(
-        new ExtendSpinnerArm(spinner, driver),
+        // new ExtendSpinnerArm(spinner, driver),
+        new SetPositionColorValues(spinner),
         new SpinColorWheelToGameColor(spinner)
     );
   }

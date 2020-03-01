@@ -66,8 +66,10 @@ public class SpinSubsystem extends SubsystemBase {
 
     public void incrementNumberRotations() {
         if (rotateToColor != "") {
-            if (currentColor == rotateToColor && currentColor != previousColor) {
+            if (currentColor == rotateToColor && (previousColor != currentColor)) {
                 numRotations++;
+            }
+            if (currentColor != previousColor || previousColor != "") {
                 previousColor = currentColor;
             }
         }
@@ -119,11 +121,10 @@ public class SpinSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        setGameColor();
-
         SmartDashboard.putString("game data color", gameDataColor);
         SmartDashboard.putString("current color", currentColor);
         SmartDashboard.putString("ROTATION CONTROL numRotations", numRotations.toString());
+        SmartDashboard.putString("ROTATION CONTROL previousColor", previousColor);
         SmartDashboard.putBoolean("ROTATION CONTROL is finished rotating", numRotations >= rotationTimes);
         SmartDashboard.putBoolean("POSITION CONTROL is finished rotating", currentColor == gameDataColor);
 
