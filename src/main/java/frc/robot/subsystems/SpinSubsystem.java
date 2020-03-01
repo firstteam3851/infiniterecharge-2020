@@ -21,7 +21,7 @@ public class SpinSubsystem extends SubsystemBase {
 
     String rotateToColor = "";
     String previousColor = "";
-    Integer rotationTimes = 7; // 3.5 rotations * 2 for color wheel configuration
+    Integer rotationTimes = 8; // 3.5 rotations * 2 for color wheel configuration
     Integer numRotations = 0;
 
     // Mechanical related methods
@@ -43,7 +43,7 @@ public class SpinSubsystem extends SubsystemBase {
     public void setGameColor() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if (gameData.length() > 0) {
-            gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex("" + gameData.charAt(0)) + 2];
+            gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex("" + gameData.charAt(0)) + 1];
         }
     }
 
@@ -60,7 +60,7 @@ public class SpinSubsystem extends SubsystemBase {
 
     public void setRotationColorValues() {
         String initialSpinnerColor = getColorValue(colorSensor.getColor().toString());
-        rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor) + 1];
+        rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor)];
         previousColor = "";
     }
 
@@ -111,7 +111,7 @@ public class SpinSubsystem extends SubsystemBase {
                 return i;
             }
         }
-        return -1;
+        return 0;
     }
 
     public void stop() {
@@ -121,10 +121,13 @@ public class SpinSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        setCurrentColor();
+
         SmartDashboard.putString("game data color", gameDataColor);
         SmartDashboard.putString("current color", currentColor);
         SmartDashboard.putString("ROTATION CONTROL numRotations", numRotations.toString());
         SmartDashboard.putString("ROTATION CONTROL previousColor", previousColor);
+        SmartDashboard.putString("ROTATION CONTROL rotateToColor", rotateToColor);
         SmartDashboard.putBoolean("ROTATION CONTROL is finished rotating", numRotations >= rotationTimes);
         SmartDashboard.putBoolean("POSITION CONTROL is finished rotating", currentColor == gameDataColor);
 
