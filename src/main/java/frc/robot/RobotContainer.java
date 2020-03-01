@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -81,6 +82,8 @@ public class RobotContainer {
    */
   public RobotContainer() {
     DriverStation.reportWarning("Robot Container init", false);
+    CameraServer.getInstance().startAutomaticCapture();
+
     // Instantiate subsystems
     driveSubsystem = new DriveSubsystem();
     spinSubsystem = new SpinSubsystem();
