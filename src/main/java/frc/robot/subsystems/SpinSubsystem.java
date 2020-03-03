@@ -15,15 +15,14 @@ public class SpinSubsystem extends SubsystemBase {
     SpeedController spinRelay = new Spark(Constants.SPINNER_RELAY);
     ColorSensorV3 colorSensor = new ColorSensorV3(Constants.COLOR_SENSOR_V3);
     Solenoid spinnerArmSolenoid = new Solenoid(Constants.SPINNER_ARM_WHEEL_SOLENOID);
-    
+
     String currentColor = "";
     String gameDataColor = "";
 
-    String initialSpinnerColor = "";
     String rotateToColor = "";
-    Integer rotationTimes = 7; // 3.5 rotations * 2 for color wheel configuration
+    String previousColor = "";
+    Integer rotationTimes = 8; // 3.5 rotations * 2 for color wheel configuration
     Integer numRotations = 0;
-
 
     // Mechanical related methods
     public void rotateCounterClockwise() {
@@ -42,33 +41,57 @@ public class SpinSubsystem extends SubsystemBase {
 
     // Color related methods
     public void setGameColor() {
-        gameDataColor = DriverStation.getInstance().getGameSpecificMessage();
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if (gameData.length() > 0) {
+            Integer gameDataColorIndex = getColorIndex("" + gameData.charAt(0)) - 2;
+            if (gameDataColorIndex < 0) {
+                gameDataColorIndex = gameDataColorIndex + 4;
+            }
+            gameDataColor = Constants.SPINNER_COLOR_ORDER[gameDataColorIndex];
+        }
+    }
+
+    public void setCurrentColor() {
+        String tempCurrentColor = getColorValue(colorSensor.getColor().toString());
+        if (tempCurrentColor != "") {
+            currentColor = tempCurrentColor;
+        }
+    }
+
+    public boolean atGameColor() {
+        return currentColor == gameDataColor;
     }
 
     public void setRotationColorValues() {
-        initialSpinnerColor = getColorValue(colorSensor.getColor().toString());
-        rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor) + 1];
+        String initialSpinnerColor = getColorValue(colorSensor.getColor().toString());
+        rotateToColor = Constants.SPINNER_COLOR_ORDER[getColorIndex(initialSpinnerColor)];
+        previousColor = "";
     }
 
-    public void completeRotationControl() {
+    public void incrementNumberRotations() {
+        if (rotateToColor != "") {
+            if (currentColor == rotateToColor && (previousColor != currentColor)) {
+                numRotations++;
+            }
+            if (currentColor != previousColor || previousColor != "") {
+                previousColor = currentColor;
+            }
+        }
+    }
+
+    public void resetRotationControl() {
         rotateToColor = "";
         numRotations = 0;
     }
 
     public boolean hasCompletedRotation() {
-        boolean hasCompletedRotation = numRotations >= rotationTimes;
-        if (hasCompletedRotation == true) {
-            completeRotationControl();
-            return true;
-        }
-        return false;
+        return numRotations >= rotationTimes;
     }
 
     public String getColorValue(String rawColorValue) {
         // Get first character of hash
         String parsedHashValue = rawColorValue.substring(37, 38);
-        SmartDashboard.putString("ParsedHashValue", parsedHashValue);
-    
+
         // match with ranges
         if (Constants.VINYL_RED_RANGE.contains(parsedHashValue)) {
             return "R";
@@ -92,8 +115,7 @@ public class SpinSubsystem extends SubsystemBase {
                 return i;
             }
         }
-
-        return -1;
+        return 0;
     }
 
     public void stop() {
@@ -103,17 +125,15 @@ public class SpinSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        String tempcurrentColor = getColorValue(colorSensor.getColor().toString());
-        if (tempcurrentColor != "") {
-            currentColor = tempcurrentColor;
-        }
-        SmartDashboard.putString("current color", currentColor);
+        setCurrentColor();
 
-        if (rotateToColor != "") {
-            if (currentColor == rotateToColor) {
-                numRotations++;
-            }
-        }
-        
+        SmartDashboard.putString("game data color", gameDataColor);
+        SmartDashboard.putString("current color", currentColor);
+        SmartDashboard.putString("ROTATION CONTROL numRotations", numRotations.toString());
+        SmartDashboard.putString("ROTATION CONTROL previousColor", previousColor);
+        SmartDashboard.putString("ROTATION CONTROL rotateToColor", rotateToColor);
+        SmartDashboard.putBoolean("ROTATION CONTROL is finished rotating", numRotations >= rotationTimes);
+        SmartDashboard.putBoolean("POSITION CONTROL is finished rotating", currentColor == gameDataColor);
+
     }
 }

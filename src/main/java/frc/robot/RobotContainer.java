@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,13 +19,13 @@ import frc.robot.commands.shooter.ReverseFeeder;
 import frc.robot.commands.shooter.RunFeeder;
 import frc.robot.commands.shooter.RunShooterHigh;
 import frc.robot.commands.shooter.RunShooterLow;
-import frc.robot.commands.shooter.RunShooterMid;
 import frc.robot.commands.shooter.ShooterStop;
 import frc.robot.commands.spinner.SpinColorWheelClockwise;
 import frc.robot.commands.spinner.SpinColorWheelCounterClockwise;
 import frc.robot.commands.spinner.SpinColorWheelStop;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.autonomous.AutonomousDriveForward;
+import frc.robot.commands.autonomous.AutonomousPositionControl;
 import frc.robot.commands.autonomous.AutonomousRotationControl;
 import frc.robot.commands.lift.ExtendLift;
 import frc.robot.commands.lift.RetractLift;
@@ -43,7 +44,7 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem;
   private final SpinSubsystem spinSubsystem;
   private final ShooterSubsystem shooterSubsystem;
-  private final LiftSubsystem liftSubsystem;
+  // private final LiftSubsystem liftSubsystem;
 
   // OI
   private final Joystick logitechJoystick;
@@ -51,10 +52,10 @@ public class RobotContainer {
   private final JoystickButton logitechJoystickButtonThree;
 
   private final Joystick controlBoard;
-  private final JoystickButton controlBoardShooterHighBtn;
-  private final JoystickButton controlBoardShooterLowBtn;
-  private final JoystickButton controlBoardFeedBtn;
-  private final JoystickButton controlBoardRevFeedBtn;
+  private final JoystickButton controlBoardShooterBtn;
+  private final JoystickButton controlBoardFeederBtn;
+  private final JoystickButton controlBoardSpinRotationBtn;
+  private final JoystickButton controlBoardSpinPositionBtn;
 
   // Commands
   TankDrive tankDrive;
@@ -64,7 +65,6 @@ public class RobotContainer {
   SpinColorWheelStop spinColorWheelStop;
 
   RunShooterLow runShooterLow;
-  RunShooterMid runShooterMid;
   RunShooterHigh runShooterHigh;
   ShooterStop shooterStop;
   RunFeeder runFeeder;
@@ -75,17 +75,20 @@ public class RobotContainer {
 
   AutonomousDriveForward autonomousDriveForward;
   AutonomousRotationControl autonomousRotationControl;
+  AutonomousPositionControl autonomousPositionControl;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     DriverStation.reportWarning("Robot Container init", false);
+    CameraServer.getInstance().startAutomaticCapture();
+
     // Instantiate subsystems
     driveSubsystem = new DriveSubsystem();
     spinSubsystem = new SpinSubsystem();
     shooterSubsystem = new ShooterSubsystem();
-    liftSubsystem = new LiftSubsystem();
+    // liftSubsystem = new LiftSubsystem();
 
     // Instantiate IO
     logitechJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT);
@@ -93,10 +96,10 @@ public class RobotContainer {
     logitechJoystickButtonThree = new JoystickButton(logitechJoystick, Constants.JOYSTICK_BUTTON_THREE);
 
     controlBoard = new Joystick(Constants.CONTROL_BOARD_PORT);
-    controlBoardShooterHighBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_HIGH);
-    controlBoardShooterLowBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER_LOW);
-    controlBoardFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEED_BTN);
-    controlBoardRevFeedBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_REV_FEED_BTN);
+    controlBoardShooterBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SHOOTER);
+    controlBoardFeederBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_FEEDER);
+    controlBoardSpinRotationBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SPIN_ROTATION);
+    controlBoardSpinPositionBtn = new JoystickButton(controlBoard, Constants.CONTROL_BOARD_SPIN_POSITION);
 
     // Instantiate commands
     tankDrive = new TankDrive(logitechJoystick, driveSubsystem);
@@ -111,16 +114,17 @@ public class RobotContainer {
     runFeeder = new RunFeeder(shooterSubsystem);
     reverseFeeder = new ReverseFeeder(shooterSubsystem);
 
-    extendLift = new ExtendLift(liftSubsystem);
-    retractLift = new RetractLift(liftSubsystem);
+    // extendLift = new ExtendLift(liftSubsystem);
+    // retractLift = new RetractLift(liftSubsystem);
 
     autonomousDriveForward = new AutonomousDriveForward(driveSubsystem);
     autonomousRotationControl = new AutonomousRotationControl(spinSubsystem, driveSubsystem);
+    autonomousPositionControl = new AutonomousPositionControl(spinSubsystem, driveSubsystem);
 
     // Assign default commands
     driveSubsystem.setDefaultCommand(tankDrive);
     spinSubsystem.setDefaultCommand(spinColorWheelStop);
-    shooterSubsystem.setDefaultCommand(runShooterLow);
+    shooterSubsystem.setDefaultCommand(shooterStop);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -138,13 +142,13 @@ public class RobotContainer {
     logitechJoystickButtonThree.whenHeld(spinColorWheelCounterClockwise);
 
     // Control Board Bindings
-    controlBoardShooterLowBtn.whenPressed(runShooterLow);
-    controlBoardShooterHighBtn.whenPressed(runShooterHigh);
+    controlBoardSpinRotationBtn.whenPressed(autonomousRotationControl);
+    controlBoardSpinPositionBtn.whenPressed(autonomousPositionControl);
 
-    controlBoardFeedBtn.whenHeld(runFeeder);
-    controlBoardRevFeedBtn.whenHeld(reverseFeeder);
+    controlBoardFeederBtn.toggleWhenPressed(runFeeder);
+    controlBoardShooterBtn.toggleWhenPressed(runShooterLow);
 
-    /* TODO button bindings for:
+    /* TODO command bindings for:
       * extractLift
       * retractLift
     */

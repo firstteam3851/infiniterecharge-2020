@@ -17,17 +17,19 @@ public class RunShooterMid extends CommandBase {
 
     public RunShooterMid(ShooterSubsystem subsystem) {
         shooterSubsystem = subsystem;
+
+        addRequirements(shooterSubsystem);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_MID);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSubsystem.setShooterSpeed(Constants.SHOOTER_MID);
         shooterSubsystem.runShooter();
     }
 

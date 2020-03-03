@@ -15,7 +15,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftValue, double rightValue) {
     Boolean SENSITIVE_LOW_SPEED = true;
-    differentialDrive.tankDrive(-leftValue, -rightValue, SENSITIVE_LOW_SPEED);
+    differentialDrive.tankDrive(rightValue, leftValue, SENSITIVE_LOW_SPEED);
     SmartDashboard.putNumber("Tank Drive - Left Motor", -leftValue);
     SmartDashboard.putNumber("Tank Drive - Right Motor", -rightValue);
   }
