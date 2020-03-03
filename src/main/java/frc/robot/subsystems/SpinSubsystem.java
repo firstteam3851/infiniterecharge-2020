@@ -43,7 +43,11 @@ public class SpinSubsystem extends SubsystemBase {
     public void setGameColor() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if (gameData.length() > 0) {
-            gameDataColor = Constants.SPINNER_COLOR_ORDER[getColorIndex("" + gameData.charAt(0)) + 1];
+            Integer gameDataColorIndex = getColorIndex("" + gameData.charAt(0)) - 2;
+            if (gameDataColorIndex < 0) {
+                gameDataColorIndex = gameDataColorIndex + 4;
+            }
+            gameDataColor = Constants.SPINNER_COLOR_ORDER[gameDataColorIndex];
         }
     }
 

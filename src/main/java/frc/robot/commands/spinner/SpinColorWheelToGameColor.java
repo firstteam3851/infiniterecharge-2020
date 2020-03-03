@@ -24,6 +24,7 @@ public class SpinColorWheelToGameColor extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        spinSubsystem.setGameColor();
         spinSubsystem.rotateClockwise();
     }
 
