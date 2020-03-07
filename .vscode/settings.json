@@ -13,5 +13,9 @@
     "**/.factorypath": true
   },
   "C_Cpp.errorSquiggles": "Disabled",
-  "java.format.settings.url": "eclipse-formatter.xml"
+  "java.format.settings.url": "eclipse-formatter.xml",
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }
