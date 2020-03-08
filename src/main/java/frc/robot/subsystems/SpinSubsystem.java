@@ -43,10 +43,7 @@ public class SpinSubsystem extends SubsystemBase {
     public void setGameColor() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if (gameData.length() > 0) {
-            Integer gameDataColorIndex = getColorIndex("" + gameData.charAt(0)) - 2;
-            if (gameDataColorIndex < 0) {
-                gameDataColorIndex = gameDataColorIndex + 4;
-            }
+            Integer gameDataColorIndex = (getColorIndex("" + gameData.charAt(0)) + 2) % 4;
             gameDataColor = Constants.SPINNER_COLOR_ORDER[gameDataColorIndex];
         }
     }
@@ -54,7 +51,9 @@ public class SpinSubsystem extends SubsystemBase {
     public void setCurrentColor() {
         String tempCurrentColor = getColorValue(colorSensor.getColor().toString());
         if (tempCurrentColor != "") {
-            currentColor = tempCurrentColor;
+            String expectedNextColor = Constants.SPINNER_COLOR_ORDER[(getColorIndex(currentColor) + 1) % 4];
+            currentColor = tempCurrentColor == expectedNextColor ? expectedNextColor : currentColor;
+            }
         }
     }
 
@@ -74,6 +73,7 @@ public class SpinSubsystem extends SubsystemBase {
                 numRotations++;
             }
             if (currentColor != previousColor || previousColor != "") {
+                
                 previousColor = currentColor;
             }
         }

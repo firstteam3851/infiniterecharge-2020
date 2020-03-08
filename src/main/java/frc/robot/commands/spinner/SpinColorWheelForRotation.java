@@ -10,11 +10,11 @@ package frc.robot.commands.spinner;
 import frc.robot.subsystems.SpinSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinColorWheelForPosition extends CommandBase {
+public class SpinColorWheelForRotation extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SpinSubsystem spinSubsystem;
 
-    public SpinColorWheelForPosition(SpinSubsystem subsystem) {
+    public SpinColorWheelForRotation(SpinSubsystem subsystem) {
         spinSubsystem = subsystem;
 
         // Use addRequirements() here to declare subsystem dependencies.
