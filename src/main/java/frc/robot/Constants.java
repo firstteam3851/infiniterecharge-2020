@@ -39,7 +39,7 @@ public final class Constants {
   public static int CONTROL_BOARD_SPIN_ROTATION = 5;
   public static int CONTROL_BOARD_SPIN_POSITION = 2;
   public static int CONTROL_BOARD_RAISE_LIFT = 3;
-  public static int CONTROL_BOARD_RAISE_BOT = 4;
+  public static int CONTROL_BOARD_LOWER_LIFT = 4;
 
   // Drive Subsystem
   public static int DRIVE_TRAIN_LEFT_MOTOR = 0;
@@ -65,6 +65,6 @@ public final class Constants {
   public static double SHOOTER_LOW = 0.25;
 
   // Lift Subsystem
-  public static int LIFT_DOWN_PORT = 0;
-  public static int LIFT_UP_PORT = 1;
+  public static int LIFT_DOWN_PORT = 5;
+  public static int LIFT_UP_PORT = 6;
 }

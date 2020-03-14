@@ -53,7 +53,6 @@ public class SpinSubsystem extends SubsystemBase {
         if (tempCurrentColor != "") {
             String expectedNextColor = Constants.SPINNER_COLOR_ORDER[(getColorIndex(currentColor) + 1) % 4];
             currentColor = tempCurrentColor == expectedNextColor ? expectedNextColor : currentColor;
-            }
         }
     }
 
